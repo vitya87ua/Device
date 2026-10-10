@@ -24,6 +24,7 @@ https://github.com/vitya87ua/Device.git
 
 ## Usage
 ```swift
+import UIKit
 import Device
 
 // Get the friendly device name
