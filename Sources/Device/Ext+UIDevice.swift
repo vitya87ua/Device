@@ -1,13 +1,14 @@
 import UIKit
 
+// Source - https://appledb.dev/
 // Source - https://stackoverflow.com/a/75371649
 // Posted by Donat Kabashi, modified by community. See post 'Timeline' for change history
 // Retrieved 2026-04-17, License - CC BY-SA 4.0
 
 public extension UIDevice {
     
-    /// Model name like: iPhone 17 Pro Max, iPad Pro M5 13...
-   static var modelName: String {
+    /// Apple Device Identifier
+    static var deviceIdentifier: String {
         var systemInfo = utsname()
         uname(&systemInfo)
         let machineMirror = Mirror(reflecting: systemInfo.machine)
@@ -16,7 +17,20 @@ public extension UIDevice {
             return identifier + String(UnicodeScalar(UInt8(value)))
         }
         
-        switch identifier {
+        return identifier
+    }
+    
+    /// If device can fold like iPhone Duo...
+    static var isFoldable: Bool {
+        switch deviceIdentifier {
+        case "iPhone19,4", "iPhone Duo": true
+        default: false
+        }
+    }
+    
+    /// Model name like: iPhone 17 Pro Max, iPad Pro M5 13...
+    static var modelName: String {
+        switch deviceIdentifier {
             // MARK: - iPhone
         case "i386", "x86_64", "arm64": return "iPhone Simulator"
         case "iPhone1,1": return "iPhone"
@@ -121,7 +135,7 @@ public extension UIDevice {
         case "iPad4,8": return "iPad mini 3 (GSM+CDMA)"
         case "iPad4,9": return "iPad Mini 3 (China)"
         case "iPad5,1": return "iPad mini 4 (WiFi)"
-        case "iPad5,2": return "4th Gen iPad mini (WiFi+Cellular)"
+        case "iPad5,2": return "iPad mini 4 (WiFi+Cellular)"
         case "iPad5,3": return "iPad Air 2 (WiFi)"
         case "iPad5,4": return "iPad Air 2 (Cellular)"
         case "iPad6,3": return "iPad Pro (9.7 inch, WiFi)"
@@ -195,6 +209,9 @@ public extension UIDevice {
         case "iPad15,7": return "iPad 11th Gen (WiFi)"
         case "iPad15,8": return "iPad 11th Gen (WiFi+Cellular)"
             
+        case "iPad16,1": return "iPad mini 7th Gen (WiFi)"
+        case "iPad16,2": return "iPad mini 7th Gen (WiFi+Cellular)"
+            
         case "iPad16,3": return "iPad Pro 11 inch 5th Gen"
         case "iPad16,4": return "iPad Pro 11 inch 5th Gen"
         case "iPad16,5": return "iPad Pro 12.9 inch 7th Gen"
@@ -209,6 +226,9 @@ public extension UIDevice {
         case "iPad17,2": return "iPad Pro M5 11 inch 5th Gen (WiFi+Cellular)"
         case "iPad17,3": return "iPad Pro M5 13 inch 5th Gen (WiFi)"
         case "iPad17,4": return "iPad Pro M5 13 inch 5th Gen (WiFi+Cellular)"
+            
+        case "iPad19,1": return "iPad mini 8th Gen (WiFi)"
+        case "iPad19,2": return "iPad mini 8th Gen (WiFi+Cellular)"
             
             // MARK: - Unrecognized
         default: return identifier
