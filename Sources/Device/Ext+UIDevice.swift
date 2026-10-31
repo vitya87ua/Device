@@ -231,7 +231,7 @@ public extension UIDevice {
         case "iPad19,2": return "iPad mini 8th Gen (WiFi+Cellular)"
             
             // MARK: - Unrecognized
-        default: return identifier
+        default: return deviceIdentifier
         }
     }
 }
